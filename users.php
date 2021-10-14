@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'constants.php';
 
 if(isset($_POST['submit']))
 {
@@ -7,11 +7,11 @@ if(isset($_POST['submit']))
     $toUser = $_POST['to'];
     $amnt = $_POST['amount'];
 
-    $sql = "SELECT * from customers where id=$from";
+    $sql = "SELECT * from transactions where id=$from";
     $query = mysqli_query($conn,$sql);
     $sql1 = mysqli_fetch_array($query); // returns array or output of user from which the credits are to be transferred.
 
-    $sql = "SELECT * from customers where id=$toUser";
+    $sql = "SELECT * from transactions where id=$toUser";
     $query = mysqli_query($conn,$sql);
     $sql2 = mysqli_fetch_array($query);
 
@@ -33,13 +33,13 @@ if(isset($_POST['submit']))
 
         //if not then deduct the credits from the user's account that we selected.
         $newCredit = $sql1['amount'] - $amnt;
-        $sql = "UPDATE customers set amount=$newCredit where id=$from";
+        $sql = "UPDATE transactions set amount=$newCredit where id=$from";
         mysqli_query($conn,$sql);
 
 
 
         $newCredit = $sql2['amount'] + $amnt;
-        $sql = "UPDATE customers set amount=$newCredit where id=$toUser";
+        $sql = "UPDATE transactions set amount=$newCredit where id=$toUser";
         mysqli_query($conn,$sql);
 
         $sender = $sql1['name'];
@@ -49,7 +49,7 @@ if(isset($_POST['submit']))
         if($tns){
            echo "<script type='text/javascript'>
                     alert('Transaction Successful. Please check your transactions in the transactions table');
-                    window.location='transactions.php';
+                    window.location='history.php';
                 </script>";
         }
         $newCredit= 0;
@@ -59,73 +59,39 @@ if(isset($_POST['submit']))
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai's Basic banking system</title>
-    <!-- <link rel="stylesheet" href="./style.css"> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>basic-banking-system</title>
 
-    <style>
-    .container{
-        background-image:url("1.png");
-    }
-    .logo-text, .nav-link1{
-      color: white;
-      padding-top: 15px;
-    }
-    .list-customer{
-      padding-left: 1100px;
-    }
 
-    .nav-link1:hover{
-      color: white;
-    }
-    .button {
-      background-color: #60B3EE;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 18px;
-      margin: 0px 2px;
-      border-radius: 5px;
-    }
-    h2{
-      text-align: center;
-      margin-top: 20px;
-    }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <link rel="stylesheet" href="style1.css">
+
 </head>
-
-
 <body>
+<header>
 
-  <nav class="navbar navbar-expand-sm">
-  <!-- Bank logo -->
-  <a class="navbar-brand" >
-  <img src="logo.png" alt="logo" style="width:150px; height:150px">
-  </a>
-  <p class="logo-text">Sai's Banking system</p>
 
-  <ul class="navbar-nav">
-  <li class="list-customer">
-  <a class="nav-link1" href="viewusers.php">View All Customers</a>
-  </li>
-  </ul>
-  </nav>
-    <div class="container divStyle">
-        <h2>Transaction here</h2>
-        <!-- <form method="post" name="tcredit" class="tabletext"><br/> -->
-            <?php
-                include 'config.php';
+    <div class="header">
+
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <h1>SATKAR BANK</h1>
+        <nav class="navbar">
+            <a href="index.php">home</a>
+            <a href="transactions.php">transfer</a>
+            <a href="history.php">view history</a>
+        </nav>
+    </div>
+
+</header>
+<?php
+                include 'constants.php';
                 $sid=$_GET['id'];
-                $sql = "SELECT * FROM  customers where id=$sid";
+                $sql = "SELECT * FROM  transactions where id=$sid";
                 $query=mysqli_query($conn,$sql);
                 if(!$query)
                 {
@@ -133,10 +99,12 @@ if(isset($_POST['submit']))
                 }
                 $rows=mysqli_fetch_array($query);
             ?>
-            <form method="post" name="tamount" class="tabletext" ><br/>
+            <div class="main-content">
+                <div class="wrapper">
+    <form method="post" name="tamount" class="tabletext" ><br/>
         <label> From: </label><br/>
         <div>
-            <table class="table roundedCorners  tabletext table-hover table-dark  table-striped table-condensed"  >
+            <table class="tbl-full"  >
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
@@ -156,9 +124,9 @@ if(isset($_POST['submit']))
         <select class=" form-control"   name="to" style="margin-bottom:5%; " required>
             <option value="" disabled selected> </option>
             <?php
-                include 'config.php';
+                include 'constants.php';
                 $sid=$_GET['id'];
-                $sql = "SELECT * FROM customers where id!=$sid";
+                $sql = "SELECT * FROM transactions where id!=$sid";
                 $query=mysqli_query($conn,$sql);
                 if(!$query)
                 {
@@ -180,10 +148,12 @@ if(isset($_POST['submit']))
             <label>Amount:</label>
             <input type="number" id="amm" class="form-control" name="amount" min="0" required  />  <br/><br/>
                 <div class="text-center btn3" >
-            <button class="button" name="submit" type="submit" id="myBtn">Proceed</button>
+                <button type="submit" id="myBtn" name="submit" class="btn-secondary">Proceed</button>
             </div>
         </form>
     </div>
+    </div>
+            </div>
 
 
 
