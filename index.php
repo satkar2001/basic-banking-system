@@ -54,21 +54,27 @@
      <div class="grid">
          <article>
              <div class="text">
-                 <h3>send money</h3>
-                <a href="transactions.php"><button>transfer</button></a>
+                <a href="transactions.php"><button>send money</button></a>
              </div>
          </article>
          <article>
              <div class="text">
-                 <h3>view transactions</h3>
-                 <a href="history.php"><button>display</button></a>
+                 <a href="history.php"><button>view transactions</button></a>
              </div>
          </article>
      </div>
  </div>
 
 
-
+ <footer class="sticky-footer">
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="transactions.php">transfer</a></li>
+            <li><a href="history.php">history</a></li>
+            <li><a href="#">about</a></li>
+        </ul>
+        <p> © Copyright satkar acharya 2021.</p>
+    </footer>
 
 </body>
 </html>
