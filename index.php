@@ -61,7 +61,7 @@
          <article>
              <div class="text">
                  <h3>view transactions</h3>
-                 <a href=""><button>display</button></a>
+                 <a href="history.php"><button>display</button></a>
              </div>
          </article>
      </div>

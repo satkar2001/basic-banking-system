@@ -144,15 +144,10 @@ section{
 }
 
 
-
-
-/* section */
 .section1 {
   padding: 4rem 0 0 0;
 }
 
-
-/* product section */
 .grid{
   margin:7rem 7rem ;
   display:grid;
@@ -172,7 +167,6 @@ section{
 
 .grid > article:hover{
   transform:translateY(5px);
-
   box-shadow: 2px 2px 26px 0px rgba(0,0,0,.3);
 }
 
