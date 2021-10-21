@@ -1,8 +1,8 @@
 <?php
-	$servername = 'sql6.freemysqlhosting.net';
-	$user = 'sql6444248';
-	$pass = 'hxdXWz2h2t';
-	$dbname = 'sql6444248';
+	$servername = 'sql6.freesqldatabase.com';
+	$user = 'sql6445857';
+	$pass = 'FcJSVe9nbW';
+	$dbname = 'sql6445857';
 
 	$conn = mysqli_connect($servername,$user,$pass,$dbname);
 
